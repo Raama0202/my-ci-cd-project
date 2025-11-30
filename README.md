@@ -1,5 +1,9 @@
 # my-ci-cd-project
 
+![Tests](https://github.com/Raama0202/my-ci-cd-project/workflows/Automated%20Testing/badge.svg) ![CodeQL](https://github.com/Raama0202/my-ci-cd-project/workflows/CodeQL%20Security%20Analysis/badge.svg) ![Codecov](https://codecov.io/gh/Raama0202/my-ci-cd-project/branch/main/graph/badge.svg)
+
+A compact CI/CD template demonstrating automated testing, linting, coverage and security scanning using GitHub Actions.
+
 A complete Python project with automated testing and CI/CD integration using GitHub Actions.
 
 ## Project Structure
