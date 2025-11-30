@@ -52,6 +52,15 @@ my-ci-cd-project/
    pip install -r requirements.txt
    ```
 
+### Running the Web Application
+
+1. **Run the Flask app:**
+   ```bash
+   python app.py
+   ```
+
+2. **Open your browser** and go to `http://127.0.0.1:5000`. You should see the To-Do list application running.
+
 ### Running Tests Locally
 
 ```bash

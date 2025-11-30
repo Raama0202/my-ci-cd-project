@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #50e3c2;
+            --background-color: #f5f7fa;
+            --container-bg: #ffffff;
+            --text-color: #333;
+            --text-light: #888;
+            --border-color: #e0e0e0;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--background-color), #c3cfe2);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2em;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--container-bg);
+            border-radius: 16px;
+            padding: 2em;
+            box-shadow: var(--shadow);
+            transform: scale(0.95);
+            animation: pop-in 0.5s forwards ease-out;
+        }
+
+        @keyframes pop-in {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1em;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .add-task-form {
+            display: flex;
+            gap: 0.5em;
+            margin-bottom: 2em;
+        }
+
+        .add-task-form input {
+            flex-grow: 1;
+            padding: 0.8em;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .add-task-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+
+        button {
+            padding: 0.8em 1.2em;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1em;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s, opacity 0.4s;
+            animation: fade-in 0.5s forwards;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+
+        .todo-item span {
+            transition: color 0.4s, text-decoration 0.4s;
+        }
+
+        .todo-item.done span {
+            text-decoration: line-through;
+            color: var(--text-light);
+            opacity: 0.7;
+        }
+
+        .todo-item .toggle-btn {
+            background: none;
+            padding: 0.5em;
+            color: var(--secondary-color);
+            font-weight: 600;
+            min-width: 80px;
+            border: 2px solid var(--secondary-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .todo-item .toggle-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .todo-item.done .toggle-btn {
+            background: var(--secondary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My To-Do List</h1>
+        <form action="/add" method="post" class="add-task-form">
+            <input type="text" name="task" placeholder="Add a new task..." required autocomplete="off">
+            <button type="submit">Add Task</button>
+        </form>
+        <ul>
+            {% for task in tasks %}
+            <li class="todo-item {% if task.done %}done{% endif %}">
+                <span>{{ task.text }}</span>
+                <form action="/toggle/{{ loop.index0 }}" method="post" style="display: inline;">
+                    <button type="submit" class="toggle-btn">
+                        {% if task.done %}Undo{% else %}Done{% endif %}
+                    </button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
